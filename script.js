@@ -3,14 +3,12 @@ document.addEventListener("DOMContentLoaded", function() {
     let timeElement = document.getElementById("time");
     let problemElement = document.getElementById("problem");
     let answerInput = document.getElementById("answer");
-    let submitButton = document.getElementById("submit");
-    let clickButton = document.getElementById("clickButton");
     let highScoreElement = document.getElementById("highScore");
 
     let score = 0;
     let highScore = localStorage.getItem("highScore") || 0;
     highScoreElement.textContent = highScore;
-    let timeLeft = 50;
+    let timeLeft = 10;
     let timer;
     let currentAnswer;
 
@@ -21,14 +19,15 @@ document.addEventListener("DOMContentLoaded", function() {
         problemElement.textContent = `${num1} + ${num2} = ?`;
     }
 
-    submitButton.addEventListener("click", function() {
-        if (timeLeft > 0) {
+    answerInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
             let userAnswer = parseInt(answerInput.value);
             if (userAnswer === currentAnswer) {
                 score++;
                 scoreElement.textContent = score;
+            } else {
+                answerInput.value = ""; // 間違った場合は入力欄をクリア
             }
-            answerInput.value = "";
             generateProblem();
         }
     });
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("ゲーム開始");
         generateProblem();
         answerInput.disabled = false;
-        submitButton.disabled = false;
+        answerInput.focus(); // 開始時に入力欄にフォーカス
 
         timer = setInterval(function() {
             timeLeft--;
@@ -46,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 answerInput.disabled = true;
-                submitButton.disabled = true;
                 if (score > highScore) {
                     highScore = score;
                     localStorage.setItem("highScore", highScore);
