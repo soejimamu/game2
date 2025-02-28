@@ -25,9 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if (userAnswer === currentAnswer) {
                 score++;
                 scoreElement.textContent = score;
-            } else {
-                answerInput.value = ""; // 間違った場合は入力欄をクリア
             }
+            answerInput.value = ""; // 正解・不正解のどちらでも入力欄をクリア
             generateProblem();
         }
     });
