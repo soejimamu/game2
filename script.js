@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let score = 0;
     let highScore = localStorage.getItem("highScore") || 0;
     highScoreElement.textContent = highScore;
-    let timeLeft = 10;
+    let timeLeft = 60;
     let timer;
     let currentAnswer;
 
